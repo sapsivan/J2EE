@@ -19,7 +19,7 @@ public class OrderService {
     private final AuditService auditService;
 
     @Transactional
-    public void createOrder(Long userId, BigDecimal amount) {
+    public Long createOrder(Long userId, BigDecimal amount) {
 
         walletService.deduct(userId, amount);
 
@@ -34,5 +34,7 @@ public class OrderService {
         paymentService.createPayment(order.getId(), amount);
 
         auditService.log("Order created with ID: " + order.getId());
+
+        return order.getId();
     }
 }
