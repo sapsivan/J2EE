@@ -13,7 +13,7 @@ public class WalletService {
 
     public void deduct(Long userId, BigDecimal amount) {
 
-        WalletEntity wallet = walletRepository.findByUserId(userId)
+        WalletEntity wallet = walletRepository.findByUserIdForUpdate(userId)
                 .orElseThrow(() -> new RuntimeException("Wallet not found"));
 
         if (wallet.getBalance().compareTo(amount) < 0) {
