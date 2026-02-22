@@ -17,9 +17,14 @@ public class OrderController {
 
         Long orderId = orderService.createOrder(
                 request.getUserId(),
-                request.getAmount()
-        );
+                request.getAmount());
 
         return new CreateOrderResponse(orderId, "CREATED");
+    }
+
+    @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    public String createOrder() {
+        return "Order Created Successfully";
     }
 }
