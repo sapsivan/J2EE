@@ -1,6 +1,5 @@
-package com.example.paymentapp.order;
+package com.example.paymentapp2.order;
 
-import com.example.paymentapp.order.OrderEntity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 
@@ -9,6 +8,8 @@ import java.math.BigDecimal;
 import org.hibernate.annotations.processing.SQL;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.example.paymentapp2.order.OrderEntity;
 
 @Service
 public class ManualJpaService {

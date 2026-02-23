@@ -1,11 +1,12 @@
-package com.example.paymentapp.order;
+package com.example.paymentapp2.order;
 
-import com.example.paymentapp.wallet.WalletService;
-import com.example.paymentapp.payment.PaymentService;
-import com.example.paymentapp.audit.AuditService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.example.paymentapp2.audit.AuditService;
+import com.example.paymentapp2.payment.PaymentService;
+import com.example.paymentapp2.wallet.WalletService;
 
 import java.math.BigDecimal;
 
@@ -28,8 +29,7 @@ public class OrderService {
                         .userId(userId)
                         .amount(amount)
                         .status("CREATED")
-                        .build()
-        );
+                        .build());
 
         paymentService.createPayment(order.getId(), amount);
 

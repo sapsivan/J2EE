@@ -1,4 +1,4 @@
-package com.example.paymentapp.security;
+package com.example.paymentapp2.security;
 
 import org.springframework.web.bind.annotation.*;
 

@@ -1,4 +1,4 @@
-package com.example.paymentapp.payment;
+package com.example.paymentapp2.payment;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,6 @@ public class PaymentService {
                         .orderId(orderId)
                         .amount(amount)
                         .status("SUCCESS")
-                        .build()
-        );
+                        .build());
     }
 }

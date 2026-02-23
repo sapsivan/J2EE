@@ -1,4 +1,4 @@
-package com.example.paymentapp.audit;
+package com.example.paymentapp2.audit;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,6 @@ public class AuditService {
         auditRepository.save(
                 AuditEntity.builder()
                         .message(message)
-                        .build()
-        );
+                        .build());
     }
 }

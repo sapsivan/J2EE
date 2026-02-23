@@ -1,4 +1,4 @@
-package com.example.paymentapp.payment;
+package com.example.paymentapp2.wallet;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -6,21 +6,20 @@ import lombok.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "payments")
+@Table(name = "wallets")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PaymentEntity {
+public class WalletEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long orderId;
+    private Long userId;
 
-    private BigDecimal amount;
-
-    private String status;
+    @Column(nullable = false)
+    private BigDecimal balance;
 }

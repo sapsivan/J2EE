@@ -1,4 +1,4 @@
-package com.example.paymentapp.security;
+package com.example.paymentapp2.security;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;

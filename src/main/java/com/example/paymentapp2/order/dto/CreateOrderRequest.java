@@ -1,4 +1,4 @@
-package com.example.paymentapp.order.dto;
+package com.example.paymentapp2.order.dto;
 
 import jakarta.validation.constraints.*;
 import lombok.*;

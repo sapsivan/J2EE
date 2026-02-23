@@ -1,4 +1,4 @@
-package com.example.paymentapp.wallet;
+package com.example.paymentapp2.wallet;
 
 import jakarta.persistence.LockModeType;
 import org.springframework.data.jpa.repository.*;
