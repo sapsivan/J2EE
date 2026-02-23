@@ -1,4 +1,4 @@
-package com.example.paymentapp2.order;
+package com.example.paymentapp.order;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -9,7 +9,7 @@ import org.hibernate.annotations.processing.SQL;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.paymentapp2.order.OrderEntity;
+import com.example.paymentapp.order.OrderEntity;
 
 @Service
 public class ManualJpaService {

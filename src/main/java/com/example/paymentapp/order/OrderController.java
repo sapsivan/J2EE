@@ -1,10 +1,10 @@
-package com.example.paymentapp2.order;
+package com.example.paymentapp.order;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.paymentapp2.order.dto.*;
+import com.example.paymentapp.order.dto.*;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

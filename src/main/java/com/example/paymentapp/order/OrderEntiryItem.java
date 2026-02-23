@@ -1,4 +1,4 @@
-package com.example.paymentapp2.order;
+package com.example.paymentapp.order;
 
 import jakarta.persistence.*;
 import lombok.*;

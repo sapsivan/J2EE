@@ -1,4 +1,4 @@
-package com.example.paymentapp2.order;
+package com.example.paymentapp.order;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
