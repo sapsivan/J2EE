@@ -1,12 +1,12 @@
-package com.example.paymentapp2.order;
+package com.example.paymentapp.order;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.paymentapp2.audit.AuditService;
-import com.example.paymentapp2.payment.PaymentService;
-import com.example.paymentapp2.wallet.WalletService;
+import com.example.paymentapp.audit.AuditService;
+import com.example.paymentapp.payment.PaymentService;
+import com.example.paymentapp.wallet.WalletService;
 
 import java.math.BigDecimal;
 

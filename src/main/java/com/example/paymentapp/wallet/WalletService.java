@@ -1,4 +1,4 @@
-package com.example.paymentapp2.wallet;
+package com.example.paymentapp.wallet;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
