@@ -1,18 +1,21 @@
 package com.example.paymentapp.order;
 
 import lombok.RequiredArgsConstructor;
-
+import com.example.paymentapp.order.OrderEntity;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.jaxb.SpringDataJaxb.OrderDto;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.w3c.dom.css.Counter;
 
+import com.example.paymentapp.order.dto.OrderDto;
+import com.example.paymentapp.order.dto.UpdateOrderRequest;
 import com.example.paymentapp.audit.AuditService;
 import com.example.paymentapp.payment.PaymentService;
 import com.example.paymentapp.wallet.WalletService;
-
+import io.micrometer.core.instrument.MeterRegistry;
+import jakarta.annotation.PostConstruct;
+import io.micrometer.core.instrument.Counter;
 import java.math.BigDecimal;
 
 @Service
@@ -23,6 +26,14 @@ public class OrderService {
     private final PaymentService paymentService;
     private final OrderRepository orderRepository;
     private final AuditService auditService;
+    private final MeterRegistry meterRegistry;
+
+    private Counter orderFetchCounter;
+
+    @PostConstruct
+    public void init() {
+        this.orderFetchCounter = meterRegistry.counter("orders.fetch.count");
+    }
 
     @Transactional
     public Long createOrder(Long userId, BigDecimal amount) {
@@ -42,28 +53,25 @@ public class OrderService {
 
         return order.getId();
     }
-        private final Counter orderFetchCounter;
-
-    public OrderService(MeterRegistry registry) {
-        this.orderFetchCounter = registry.counter("orders.fetch.count");
-    }
-
 
     @Cacheable(value = "orders", key = "#id")
     public OrderDto getOrderById(Long id) {
         return orderRepository.findById(id)
-                .map(OrderMapper::toDto)
+                .map(order -> new OrderDto(order.getId(), order.getStatus()))
                 .orElseThrow(() -> new RuntimeException("Order not found"));
     }
 
     @CacheEvict(value = "orders", key = "#id")
     public OrderDto updateOrder(Long id, UpdateOrderRequest request) {
-        Order order = orderRepository.findById(id)
+        OrderEntity order = orderRepository.findById(id)
                 .orElseThrow();
 
         order.setStatus(request.getStatus());
         orderRepository.save(order);
 
-        return OrderMapper.toDto(order);
+        OrderDto dto = new OrderDto();
+        dto.setId(order.getId());
+        dto.setStatus(order.getStatus());
+        return dto;
     }
 }

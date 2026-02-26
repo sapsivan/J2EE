@@ -1,14 +1,15 @@
 package com.example.paymentapp.security;
 
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class AuthController {
 
-    private final JwtUtil jwtUtil;
+    private final JwtService jwtService;
 
-    public AuthController(JwtUtil jwtUtil) {
-        this.jwtUtil = jwtUtil;
+    public AuthController(JwtService jwtService) {
+        this.jwtService = jwtService;
     }
 
     @PostMapping("/login")
@@ -16,7 +17,14 @@ public class AuthController {
             @RequestParam String password) {
 
         if ("admin".equals(username) && "password".equals(password)) {
-            return jwtUtil.generateToken(username);
+
+            UserDetails user = org.springframework.security.core.userdetails.User
+                    .withUsername(username)
+                    .password("")
+                    .roles("ADMIN")
+                    .build();
+
+            return jwtService.generateToken(user);
         }
 
         throw new RuntimeException("Invalid credentials");

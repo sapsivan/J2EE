@@ -33,4 +33,13 @@ public class OrderController {
                 return ResponseEntity.ok(
                                 new CreateOrderResponse(orderId, "CREATED"));
         }
+
+        @GetMapping("/{id}")
+        @PreAuthorize("hasRole('ADMIN')")
+        public ResponseEntity<OrderDto> getOrder(@PathVariable Long id) {
+
+                OrderDto dto = orderService.getOrderById(id);
+
+                return ResponseEntity.ok(dto);
+        }
 }
