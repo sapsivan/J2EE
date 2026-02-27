@@ -10,13 +10,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.paymentapp.order.dto.OrderDto;
 import com.example.paymentapp.order.dto.UpdateOrderRequest;
+import com.example.paymentapp.outbox.OutboxEvent;
 import com.example.paymentapp.audit.AuditService;
 import com.example.paymentapp.payment.PaymentService;
 import com.example.paymentapp.wallet.WalletService;
 import io.micrometer.core.instrument.MeterRegistry;
 import jakarta.annotation.PostConstruct;
+import com.example.paymentapp.outbox.OutboxRepository;
 import io.micrometer.core.instrument.Counter;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
@@ -27,6 +30,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final AuditService auditService;
     private final MeterRegistry meterRegistry;
+    private final OutboxRepository outboxRepository;
 
     private Counter orderFetchCounter;
 
@@ -47,9 +51,21 @@ public class OrderService {
                         .status("CREATED")
                         .build());
 
-        paymentService.createPayment(order.getId(), amount);
+        // paymentService.createPayment(order.getId(), amount);
 
-        auditService.log("Order created with ID: " + order.getId());
+        // auditService.log("Order created with ID: " + order.getId());
+
+        // Create Outbox event in SAME transaction
+        OutboxEvent event = OutboxEvent.builder()
+                .aggregateType("ORDER")
+                .aggregateId(order.getId())
+                .eventType("ORDER_CREATED")
+                .payload("{\"orderId\":" + order.getId() + "}")
+                .processed(false)
+                .createdAt(LocalDateTime.now())
+                .build();
+
+        outboxRepository.save(event);
 
         return order.getId();
     }

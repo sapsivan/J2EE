@@ -42,4 +42,11 @@ public class OrderController {
 
                 return ResponseEntity.ok(dto);
         }
+
+        @PutMapping("/{id}/pay")
+        @PreAuthorize("hasRole('ADMIN')")
+        public ResponseEntity<String> pay(@PathVariable Long id) {
+                orderService.markAsPaid(id);
+                return ResponseEntity.ok("PAID");
+        }
 }
