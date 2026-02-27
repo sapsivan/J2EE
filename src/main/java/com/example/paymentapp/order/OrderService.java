@@ -74,4 +74,15 @@ public class OrderService {
         dto.setStatus(order.getStatus());
         return dto;
     }
+
+    @CacheEvict(value = "orders", key = "#id")
+    public void markAsPaid(Long id) {
+
+        System.out.println("Updating DB for order " + id);
+
+        // simulate update
+        OrderEntity order = orderRepository.findById(id).orElseThrow();
+        order.setStatus("PAID");
+        orderRepository.save(order);
+    }
 }
