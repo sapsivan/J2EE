@@ -54,7 +54,7 @@ public class OrderService {
         return order.getId();
     }
 
-    @Cacheable(value = "orders", key = "#id")
+    @Cacheable(value = "orders", key = "#id", sync = true)
     public OrderDto getOrderById(Long id) {
 
         System.out.println("Fetching from DB for id " + id);
