@@ -17,6 +17,6 @@ public class RedisConfig {
                 .serializeValuesWith(
                         RedisSerializationContext.SerializationPair.fromSerializer(
                                 new GenericJackson2JsonRedisSerializer()))
-                .entryTtl(Duration.ofMinutes(5));
+                .entryTtl(Duration.ofSeconds(5));
     }
 }

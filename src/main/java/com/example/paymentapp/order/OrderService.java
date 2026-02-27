@@ -56,6 +56,9 @@ public class OrderService {
 
     @Cacheable(value = "orders", key = "#id")
     public OrderDto getOrderById(Long id) {
+
+        System.out.println("Fetching from DB for id " + id);
+
         return orderRepository.findById(id)
                 .map(order -> new OrderDto(order.getId(), order.getStatus()))
                 .orElseThrow(() -> new RuntimeException("Order not found"));
