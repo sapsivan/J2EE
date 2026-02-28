@@ -4,6 +4,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.listener.DeadLetterPublishingRecoverer;
 import org.springframework.kafka.listener.DefaultErrorHandler;
 import org.springframework.util.backoff.FixedBackOff;
 
@@ -11,10 +13,13 @@ import org.springframework.util.backoff.FixedBackOff;
 public class KafkaConfig {
 
     @Bean
-    public DefaultErrorHandler errorHandler() {
-        // retry 3 times, 2 sec delay
+    public DefaultErrorHandler errorHandler(KafkaTemplate<String, String> template) {
+
+        DeadLetterPublishingRecoverer recoverer = new DeadLetterPublishingRecoverer(template);
+
         FixedBackOff backOff = new FixedBackOff(2000L, 3);
-        return new DefaultErrorHandler(backOff);
+
+        return new DefaultErrorHandler(recoverer, backOff);
     }
 
     @Bean
