@@ -9,15 +9,15 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class OrderEventConsumer {
 
-    @KafkaListener(topics = "order-events", groupId = "order-group")
+    @KafkaListener(topics = "order-events", groupId = "order-group", containerFactory = "kafkaListenerContainerFactory")
     public void consume(String message) {
-        System.out.println("Received order event: " + message);
+        log.info("Received order event: {}", message);
 
         // simulate processing
         if (message.contains("FAIL")) {
             throw new RuntimeException("Simulated failure");
         }
 
-        System.out.println("Processed successfully");
+        log.info("Processed event {} successfully", message);
     }
 }
