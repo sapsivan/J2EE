@@ -1,4 +1,4 @@
-package com.example.inventory.inventory;
+package com.example.demo.inventory;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

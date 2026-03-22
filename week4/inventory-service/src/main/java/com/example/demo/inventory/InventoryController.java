@@ -1,5 +1,6 @@
-package com.example.inventory.inventory;
+package com.example.demo.inventory;
 
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,11 @@ public class InventoryController {
         boolean available = service.isAvailable(productId);
 
         return new InventoryResponse(productId, available);
+    }
+
+    @PostConstruct
+    public void init() {
+        System.out.println("🔥 InventoryController loaded");
     }
 
     record InventoryResponse(Long productId, boolean available) {

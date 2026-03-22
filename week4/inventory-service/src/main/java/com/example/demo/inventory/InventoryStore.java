@@ -1,4 +1,4 @@
-package com.example.inventory.inventory;
+package com.example.demo.inventory;
 
 import org.springframework.stereotype.Component;
 
