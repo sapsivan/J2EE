@@ -10,7 +10,7 @@ public class InventoryClient {
 
     public boolean isAvailable(Long productId) {
 
-        String url = "http://localhost:8082/inventory/" + productId;
+        String url = "http://inventory-service:8082/inventory/" + productId;
 
         InventoryResponse response = restTemplate.getForObject(url, InventoryResponse.class);
 
